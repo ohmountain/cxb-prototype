@@ -1,0 +1,11 @@
+cxb_app:
+    resource: "@CxbAppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cxb_user:
+    resource: "@CxbUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

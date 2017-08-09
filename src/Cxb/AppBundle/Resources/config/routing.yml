@@ -1,0 +1,3 @@
+cxb_app_homepage:
+    path:     /
+    defaults: { _controller: CxbAppBundle:Default:index }

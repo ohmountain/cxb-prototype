@@ -1,0 +1,4 @@
+services:
+#    cxb_user.example:
+#        class: Cxb\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
