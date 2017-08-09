@@ -5,7 +5,7 @@
 [请看](https://github.com/ohmountain/qingzhen-demo)
 
 ## 基本数据结构
-![基本数据结构]('additional/cxb_basic_data_structure.png')
+![基本数据结构](additional/cxb_basic_data_structure.png)
 
 ## 安装和运行
 ```shell
