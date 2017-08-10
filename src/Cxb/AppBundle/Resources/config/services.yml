@@ -2,3 +2,7 @@ services:
 #    cxb_app.example:
 #        class: Cxb\AppBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    cxb_app.department_manager:
+        class: Cxb\AppBundle\Service\Department
+        arguments: ["@service_container"]
