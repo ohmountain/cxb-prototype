@@ -6,3 +6,7 @@ services:
     cxb_app.department_manager:
         class: Cxb\AppBundle\Service\Department
         arguments: ["@service_container"]
+
+    cxb_app.person_manager:
+        class: Cxb\AppBundle\Service\Person
+        arguments: ["@service_container"]

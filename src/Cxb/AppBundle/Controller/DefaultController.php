@@ -20,4 +20,18 @@ class DefaultController extends Controller
 
         return $this->render('CxbAppBundle:Default:index.html.twig');
     }
+
+    public function personAction()
+    {
+        /**
+         * @var \Cxb\AppBundle\Service\Person $person_manager
+         */
+        $person_manager = $this->get("cxb_app.person_manager");
+
+        $person = $person_manager->create("田仁山", 0, "522630199009019658", "贵州省台江县方召乡方召村1组", md5(\uniqid()));
+
+        dump($person);
+
+        return $this->render('CxbAppBundle:Default:index.html.twig');
+    }
 }
