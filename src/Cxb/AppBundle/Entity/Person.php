@@ -275,4 +275,26 @@ class Person
     {
         return $this->events;
     }
+
+    /**
+     * Make object to array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $id   = $this->getId();
+        $name = $this->getName();
+        $sex  = $this->getSex();
+        $id_number = $this->getIdNumber();
+        $token = $this->getToken();
+
+        return array(
+            'id' => $id,
+            'name' => $name,
+            'sex' => $sex,
+            'id_number' => $id_number,
+            'token' => $token
+        );
+    }
 }

@@ -7,6 +7,29 @@ use Cxb\AppBundle\Entity\Person as PersonEntity;
 
 class Person
 {
+    /**
+     * P: Positive
+     * N: Negative
+     */
+
+    /**
+     * 返回获取状态
+     */
+    const SUCCESS           = "Success";
+    const FAILURE           = "Failure";
+    const INTERNAL_ERROR    = "Internal Error";
+
+    /**
+     * Person 是否存在
+     */
+    const GET_PERSON_N = 4040;
+    const GET_PERSON_P = 4041;
+
+    const REQUIRE_PARAMETER = 4042;
+
+    const CREATED_PERSON_P = 4023;
+    const CREATED_PERSON_N = 4024;
+
     private $container;
 
     public function __construct(ContainerInterface $container)
@@ -46,6 +69,14 @@ class Person
     }
 
     /**
+     * @return PersonEntity
+     */
+    public function createEmpty(): PersonEntity
+    {
+        return (new PersonEntity());
+    }
+
+    /**
      * @param array $where
      *
      * @return array
@@ -55,6 +86,24 @@ class Person
         $rep = $this->container->get("doctrine")->getRepository("Cxb\AppBundle\Entity\Person");
 
         return $rep->findBy($where);
+    }
+
+    /**
+     * @param array $id
+     *
+     * @return PersonEntity
+     */
+    public function get(int $id): PersonEntity
+    {
+        $rep = $this->container->get("doctrine")->getRepository("Cxb\AppBundle\Entity\Person");
+
+        $person = $rep->find($id);
+
+        if ($person === null) {
+            $person = new PersonEntity();
+        }
+
+        return $person;
     }
 
     /**

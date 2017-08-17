@@ -6,3 +6,22 @@ cxb_app_homepage:
 cxb_app_person:
     path:     /person
     defaults: { _controller: CxbAppBundle:Default:person }
+
+cxb_app_person_create_person:
+    path:    /api/v1/person
+    defaults: { _controller: CxbAppBundle:Person:create }
+    methods: [POST]
+
+cxb_app_person_get_by_id:
+    path:    /api/v1/person/{id}
+    defaults: { _controller: CxbAppBundle:Person:getById }
+    requirements:
+      id: \d+
+    methods: [GET]
+
+cxb_app_person_get_by_token:
+    path:    /api/v1/person/{token}
+    defaults: { _controller: CxbAppBundle:Person:getByToken }
+    requirements:
+      token: \w+
+    methods: [GET]
