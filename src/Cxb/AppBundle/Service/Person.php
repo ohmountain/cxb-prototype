@@ -7,29 +7,6 @@ use Cxb\AppBundle\Entity\Person as PersonEntity;
 
 class Person
 {
-    /**
-     * P: Positive
-     * N: Negative
-     */
-
-    /**
-     * 返回获取状态
-     */
-    const SUCCESS           = "Success";
-    const FAILURE           = "Failure";
-    const INTERNAL_ERROR    = "Internal Error";
-
-    /**
-     * Person 是否存在
-     */
-    const GET_PERSON_N = 4040;
-    const GET_PERSON_P = 4041;
-
-    const REQUIRE_PARAMETER = 4042;
-
-    const CREATED_PERSON_P = 4023;
-    const CREATED_PERSON_N = 4024;
-
     private $container;
 
     public function __construct(ContainerInterface $container)
@@ -146,5 +123,20 @@ class Person
         }
 
         return $persons[0];
+    }
+
+    /**
+     * @param int $page
+     * @param int $count
+     *
+     * @return array
+     */
+    public function pagination(int $page, int $count): \stdClass
+    {
+        return $this->container
+            ->get("doctrine")
+            ->getManager()
+            ->getRepository(PersonEntity::class)
+            ->pagination($page, $count);
     }
 }

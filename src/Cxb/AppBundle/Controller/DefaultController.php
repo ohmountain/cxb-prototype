@@ -28,9 +28,7 @@ class DefaultController extends Controller
          */
         $person_manager = $this->get("cxb_app.person_manager");
 
-        $person = $person_manager->create("田仁山", 0, "522630199009019658", "贵州省台江县方召乡方召村1组", md5(\uniqid()));
-
-        dump($person);
+        dump($person_manager->pagination(2, 10));
 
         return $this->render('CxbAppBundle:Default:index.html.twig');
     }

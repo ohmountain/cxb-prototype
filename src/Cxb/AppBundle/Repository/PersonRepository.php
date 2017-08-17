@@ -10,4 +10,67 @@ namespace Cxb\AppBundle\Repository;
  */
 class PersonRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function count(): int
+    {
+        $query = $this->createQueryBuilder("p")
+               ->select("count('id')")
+               ->getQuery();
+
+        return $query->getResult()[0][1];
+    }
+
+    public function pagination(int $page, int $count): \stdClass
+    {
+        $max_count = $this->count();
+        $max_page  = ceil($max_count / $count);
+
+
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        if ($page > $max_page) {
+            $page = $max_page;
+        }
+
+        if ($count > $max_count) {
+            $count = $max_count;
+        }
+
+        if ($count < 1) {
+            $count = 20;
+        }
+
+        $query = $this->createQueryBuilder("p")
+               ->select("p")
+               ->setFirstResult(($page - 1) * $count)
+               ->setMaxResults($count)
+               ->getQuery();
+
+        $persons = $query->getResult();
+
+        $data = new \stdClass();
+
+        $data->page = $page;
+        $data->max_page = $max_page;
+        $data->count = count($persons);
+        $data->max_count = $max_count;
+        $data->persons = $persons;
+        $data->toArray = function() use($persons) {
+            $array = [];
+
+            foreach ($persons as $p) {
+                array_push($array, $p->toArray());
+            }
+
+            return $array;
+        };
+
+        return $data;
+    }
+
+    public function paginationBy(array $where, $current, int $count): Array
+    {
+        return [];
+    }
 }

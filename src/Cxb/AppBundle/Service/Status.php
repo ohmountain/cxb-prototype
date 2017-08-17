@@ -19,8 +19,11 @@ class Status
     const GET_PERSON_N = 4040;
     const GET_PERSON_P = 4041;
 
-    const REQUIRE_PARAMETER = 4042;
+    const GET_PERSONS_N = 4042;
+    const GET_PERSONS_P = 4043;
 
-    const CREATED_PERSON_P = 4023;
-    const CREATED_PERSON_N = 4024;
+    const REQUIRE_PARAMETER = 4044;
+
+    const CREATED_PERSON_P = 4025;
+    const CREATED_PERSON_N = 4026;
 }

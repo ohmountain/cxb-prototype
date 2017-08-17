@@ -25,3 +25,11 @@ cxb_app_person_get_by_token:
     requirements:
       token: \w+
     methods: [GET]
+
+cxb_app_person_pagination:
+    path:   /api/v1/people/{page}/{count}
+    defaults: { _controller: CxbAppBundle:Person:pagination }
+    requirements:
+      page: \d+
+      count: \d+
+    methods: [GET]
