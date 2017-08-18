@@ -16,15 +16,16 @@ class PersonController extends Controller
         $name = $request->get("name");
         $sex  = $request->get("sex");
         $id_number = $request->get("id_number");
-        $addrss = $request->get("address");
+        $address = $request->get("address");
 
         $person_manager = $this->get("cxb_app.person_manager");
         $response = new JsonResponse();
+        $response->headers->set('Access-Control-Allow-Origin', '*');
 
         $content = [
             "code" => Status::CREATED_PERSON_P,
             "success" => Status::SUCCESS,
-            "desc" => Describe::CREATE_PERSON_SUCCESS
+            "desc" => Describe::CREATE_PERSON_P
         ];
 
         if ($name == null || $sex == null || $id_number == null || $address == null) {
@@ -35,13 +36,20 @@ class PersonController extends Controller
             return $response->setContent(json_encode($content));
         }
 
-        if ($person_manager->getByIdNumber($id_number) !== null) {
-            $content["code"] = Status::REQUIRE_PARAMETER;
+        if ($person_manager->getByIdNumber($id_number)->getId() !== null) {
+            $content["code"] = Status::CREATED_PERSON_N;
             $content["success"] = Status::FAILURE;
+            $content["desc"] = Describe::PERSON_ID_NUMBER_EXISTS;
             $content["person"] = $person_manager->createEmpty();
 
             return $response->setContent(json_encode($content));
         }
+
+        $person = $person_manager->create($name, $sex, $id_number, $address, md5(uniqid()));
+
+        $content['person'] = $person;
+
+        return $response->setContent(json_encode($content));
     }
 
     public function getByIdAction(int $id)
@@ -60,6 +68,8 @@ class PersonController extends Controller
         $content["code"] = $person["id"] === null ? Status::GET_PERSON_N : Status::GET_PERSON_P;
         $content["desc"] = $person["id"] === null ? Describe::GET_PERSON_N : Describe::GET_PERSON_P;
         $content["success"] = $person["id"] === null ? Status::FAILURE : Status::SUCCESS;
+
+        $response->headers->set('Access-Control-Allow-Origin', '*');
 
         $response->setContent(json_encode($content));
 
@@ -104,6 +114,8 @@ class PersonController extends Controller
             "max_count" => $data->max_count,
             "persons" => ($data->toArray)()
         ];
+
+        $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response->setContent(json_encode($content));
     }

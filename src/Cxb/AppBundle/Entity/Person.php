@@ -288,13 +288,15 @@ class Person
         $sex  = $this->getSex();
         $id_number = $this->getIdNumber();
         $token = $this->getToken();
+        $address = $this->getAddress();
 
         return array(
             'id' => $id,
             'name' => $name,
             'sex' => $sex,
             'id_number' => $id_number,
-            'token' => $token
+            'token' => $token,
+            'address' => $address
         );
     }
 }

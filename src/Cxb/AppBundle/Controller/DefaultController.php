@@ -28,7 +28,15 @@ class DefaultController extends Controller
          */
         $person_manager = $this->get("cxb_app.person_manager");
 
-        dump($person_manager->pagination(2, 10));
+        // for ($i=0; $i<100; $i++) {
+        //     $name = "张{$i}";
+        //     $sex = $i%2;
+        //     $id_number = 522930190004010232 + $i;
+        //     $address = "北京哪个路不知道胡同{$i}号";
+        //     $token = md5(uniqid());
+
+        //     $person_manager->create($name, $sex, $id_number, $address, $token);
+        // }
 
         return $this->render('CxbAppBundle:Default:index.html.twig');
     }
